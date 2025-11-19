@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
     if (argc != 4) {
-        printf("usage: %s LOWER UPPER STEP\n", argv[0]);
+        fprintf(stderr, "usage: %s LOWER UPPER STEP\n", argv[0]);
         return 1;
     }
 
@@ -13,11 +13,11 @@ int main(int argc, char *argv[])
     int step = atoi(argv[3]);
 
     if (lower >= upper) {
-        puts("upper must be greater than lower");
+        fprintf(stderr, "upper must be greater than lower");
         return 1;
     }
     if (step <= 0) {
-        puts("step must be positive");
+        fprintf(stderr, "step must be positive");
         return 1;
     }
 
