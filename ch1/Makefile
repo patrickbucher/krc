@@ -1,5 +1,5 @@
 CFLAGS=-Wall -Wpedantic -std=c99
-ALL=ex01 ex02 ex03
+ALL=ex01 ex02 ex03 ex04
 
 .PHONY: all format clean
 
