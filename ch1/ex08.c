@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(int argc, char *argv[])
+int main(void)
 {
     int blanks = 0, tabs = 0, newlines = 0;
     char c;

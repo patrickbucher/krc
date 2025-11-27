@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(int argc, char *argv[])
+int main(void)
 {
     printf("%d\n", EOF);
     return 0;

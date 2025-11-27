@@ -2,7 +2,7 @@
 
 #define MAXLEN 20
 
-int main(int argc, char *argv[])
+int main(void)
 {
     int hist[MAXLEN];
     char c = 0, n = 0;

@@ -6,7 +6,7 @@
 // $ echo -n 'This is a test' | ./ex11
 // 0 4 14
 
-int main(int argc, char *argv[])
+int main(void)
 {
     _Bool in = false;
     char c = 0;

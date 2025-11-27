@@ -9,7 +9,7 @@
 #define LOWER_OFFSET (UPPER_OFFSET + UPPER_COUNT)
 #define DIGIT_OFFSET (LOWER_OFFSET + LOWER_COUNT)
 
-int main(int argc, char *argv[])
+int main(void)
 {
     int counts[TOTAL_COUNT];
     char c;

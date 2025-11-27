@@ -4,7 +4,7 @@
 #define BUFFERING 1
 #define PRINTING 2
 
-int main(int argc, char *argv[])
+int main(void)
 {
     char c, buf[TRESHOLD + 1];
     int mode = BUFFERING, i = 0;
