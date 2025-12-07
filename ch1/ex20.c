@@ -5,7 +5,7 @@
 int main(void)
 {
     char c;
-    int pos, nextTabAt;
+    int pos;
 
     pos = 0;
     while ((c = getchar()) != EOF) {
