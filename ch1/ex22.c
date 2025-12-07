@@ -1,6 +1,12 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-#define LINE_LENGTH 72
+#define LINE_LENGTH 36
+
+bool is_blank(char c)
+{
+    return c == ' ' || c == '\t';
+}
 
 int main(void)
 {
@@ -22,19 +28,26 @@ int main(void)
             for (int r = last_non_blank_at + 1, w = 0; r < i; r++) {
                 line[w++] = line[r++];
                 i = w;
-                if (line[i] == '\t' || line[i] == ' ') {
+                if (is_blank(line[i])) {
                     last_blank_at = i;
                 }
             }
+            i = 0;
         } else {
-            // TODO: hard break, implement later
+            line[LINE_LENGTH] = '\0';
+            puts(line);
+            c = '\n';
+            i = 0;
         }
         if (c == '\n') {
             line[i] = '\0';
             puts(line);
+            for (int j = i; j >= 0; j--) {
+                line[j] = '\0';
+            }
             i = 0;
             last_blank_at = -1;
-        } else if (c == '\t' || c == ' ') {
+        } else if (is_blank(c)) {
             last_blank_at = i;
         }
     }
