@@ -3,10 +3,10 @@
 
 #define LINE_LENGTH 36
 
-bool is_blank(char c)
-{
-    return c == ' ' || c == '\t';
-}
+bool is_blank(char);
+int find_last_non_blank(char[], int);
+int find_last_blank(char[], int);
+int shift_left(char[], int);
 
 int main(void)
 {
@@ -17,26 +17,16 @@ int main(void)
         if (i < LINE_LENGTH) {
             line[i++] = c;
         } else if (last_blank_at != -1) {
-            for (int j = last_blank_at; j >= 0; j--) {
-                if (line[j] != '\t' && line[j] != ' ') {
-                    last_non_blank_at = j;
-                    break;
-                }
-            }
+            last_non_blank_at = find_last_non_blank(line, LINE_LENGTH);
             line[last_non_blank_at + 1] = '\0';
             puts(line);
-            for (int r = last_non_blank_at + 1, w = 0; r < i; r++) {
-                line[w++] = line[r++];
-                i = w;
-                if (is_blank(line[i])) {
-                    last_blank_at = i;
-                }
-            }
-            i = 0;
+            i = shift_left(line, last_non_blank_at);
+            last_blank_at = find_last_blank(line, i);
+            line[i++] = c;
         } else {
             line[LINE_LENGTH] = '\0';
+            putchar('-');
             puts(line);
-            c = '\n';
             i = 0;
         }
         if (c == '\n') {
@@ -54,4 +44,41 @@ int main(void)
     puts(line);
 
     return 0;
+}
+
+bool is_blank(char c)
+{
+    return c == ' ' || c == '\t';
+}
+
+int find_last_non_blank(char line[], int n)
+{
+    int last_non_blank = -1;
+    for (int i = 0; i < n; i++) {
+        if (!is_blank(line[i]) && line[i] != '\n' && line[i] != '\0') {
+            last_non_blank = i;
+        }
+    }
+    return last_non_blank;
+}
+
+int find_last_blank(char line[], int n)
+{
+    int last_blank = -1;
+    for (int i = 0; i < n; i++) {
+        if (is_blank(line[i])) {
+            last_blank = i;
+        }
+    }
+    return last_blank;
+}
+
+int shift_left(char line[], int i)
+{
+    int r, w;
+    for (r = i, w = 0; line[r] != '\0'; r++, w++) {
+        line[w] = line[r];
+    }
+    line[w] = '\0';
+    return w - 1;
 }
