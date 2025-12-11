@@ -4,10 +4,10 @@
 
 int main(void)
 {
-    int hist[MAXLEN];
+    int hist[MAXLEN], i, j;
     char c = 0, n = 0;
 
-    for (int i = 0; i < MAXLEN; i++) {
+    for (i = 0; i < MAXLEN; i++) {
         hist[i] = 0;
     }
 
@@ -22,9 +22,9 @@ int main(void)
         }
     }
 
-    for (int i = 0; i < MAXLEN; i++) {
+    for (i = 0; i < MAXLEN; i++) {
         printf("%2d ", i + 1);
-        for (int j = 0; j < hist[i]; j++) {
+        for (j = 0; j < hist[i]; j++) {
             putchar('=');
         }
         putchar('\n');

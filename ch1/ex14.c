@@ -11,10 +11,10 @@
 
 int main(void)
 {
-    int counts[TOTAL_COUNT];
+    int counts[TOTAL_COUNT], i, j;
     char c;
 
-    for (int i = 0; i < TOTAL_COUNT; i++) {
+    for (i = 0; i < TOTAL_COUNT; i++) {
         counts[i] = 0;
     }
 
@@ -28,23 +28,23 @@ int main(void)
         }
     }
 
-    for (int i = UPPER_OFFSET; i < LOWER_OFFSET; i++) {
+    for (i = UPPER_OFFSET; i < LOWER_OFFSET; i++) {
         printf("%c ", i + 'A');
-        for (int j = 0; j < counts[i]; j++) {
+        for (j = 0; j < counts[i]; j++) {
             putchar('=');
         }
         putchar('\n');
     }
-    for (int i = LOWER_OFFSET; i < DIGIT_OFFSET; i++) {
+    for (i = LOWER_OFFSET; i < DIGIT_OFFSET; i++) {
         printf("%c ", i - LOWER_OFFSET + 'a');
-        for (int j = 0; j < counts[i]; j++) {
+        for (j = 0; j < counts[i]; j++) {
             putchar('=');
         }
         putchar('\n');
     }
-    for (int i = DIGIT_OFFSET; i < TOTAL_COUNT; i++) {
+    for (i = DIGIT_OFFSET; i < TOTAL_COUNT; i++) {
         printf("%c ", i - DIGIT_OFFSET + '0');
-        for (int j = 0; j < counts[i]; j++) {
+        for (j = 0; j < counts[i]; j++) {
             putchar('=');
         }
         putchar('\n');

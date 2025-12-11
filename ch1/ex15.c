@@ -5,12 +5,13 @@ float fahr_to_cels(float);
 
 int main(int argc, char *argv[])
 {
+    float lower, upper, step, f, c;
+
     if (argc < 4) {
         printf("usage: %s LOWER UPPER STEP\n", argv[0]);
         return 1;
     }
 
-    float lower, upper, step;
     lower = atof(argv[1]);
     upper = atof(argv[2]);
     step = atof(argv[3]);
@@ -20,8 +21,8 @@ int main(int argc, char *argv[])
     }
 
     printf("%10s\t%10s\n", "F", "C");
-    for (float f = lower; f < upper; f += step) {
-        float c = fahr_to_cels(f);
+    for (f = lower; f < upper; f += step) {
+        c = fahr_to_cels(f);
         printf("%10.2f\t%10.2f\n", f, c);
     }
 
@@ -30,7 +31,9 @@ int main(int argc, char *argv[])
 
 float fahr_to_cels(float fahr)
 {
-    float cels = 5 * (fahr - 32) / 9;
+    float cels;
+
+    cels = 5 * (fahr - 32) / 9;
 
     return cels;
 }

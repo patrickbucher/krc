@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    char line[LINE_LENGTH + 1]; // 0-terminated
+    char line[LINE_LENGTH + 1];
     char c;
     int i = 0, j = 0, r = 0, w = 0, bp = 0;
 

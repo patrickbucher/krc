@@ -1,9 +1,8 @@
 #include <stdio.h>
-#include <stdbool.h>
 
 #define BUFSIZE 1024
 
-_Bool is_whitespace(char c)
+int is_whitespace(char c)
 {
     return c == ' ' || c == '\t';
 }
