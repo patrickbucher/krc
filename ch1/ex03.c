@@ -3,14 +3,17 @@
 
 int main(int argc, char *argv[])
 {
+    int lower, upper, step;
+    float fahr, cel;
+
     if (argc != 4) {
         fprintf(stderr, "usage: %s LOWER UPPER STEP\n", argv[0]);
         return 1;
     }
 
-    int lower = atoi(argv[1]);
-    int upper = atoi(argv[2]);
-    int step = atoi(argv[3]);
+    lower = atoi(argv[1]);
+    upper = atoi(argv[2]);
+    step = atoi(argv[3]);
 
     if (lower >= upper) {
         fprintf(stderr, "upper must be greater than lower");
@@ -23,8 +26,8 @@ int main(int argc, char *argv[])
 
     printf("%6s\t%6s\n", "F", "C");
     while (lower <= upper) {
-        float fahr = (float) lower;
-        float cel = 5 * (fahr - 32) / 9;
+        fahr = (float) lower;
+        cel = 5 * (fahr - 32) / 9;
         printf("%6.2f\t%6.2f\n", fahr, cel);
         lower += step;
     }
