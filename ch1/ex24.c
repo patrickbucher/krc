@@ -4,18 +4,24 @@
 
 char counterpart(char);
 
-/* limited syntax check: only checks for balances {}, [], (), and "". */
+/* limited syntax check: only checks for balanced {}, [], (), and "". */
 int main(void)
 {
     char c, c1 = 0, stack[STACK_SIZE];
-    int s = 0, line = 1, col = 1;
+    int s = 0, line = 1, col = 0;
 
     while ((c = getchar()) != EOF) {
+        if (c == '\n') {
+            line++;
+            col = 0;
+        } else {
+            col++;
+        }
         switch (c) {
         case '"':
         case '\'':
             if (stack[s - 1] == c && c1 != '\\') {
-                s--;
+                stack[s--] = '\0';
             } else if (c1 != '\\') {
                 stack[s++] = c;
             }
@@ -23,10 +29,9 @@ int main(void)
         case '{':
         case '[':
         case '(':
-            if (stack[s - 1] == '"' || stack[s - 1] == '\'') {
-                break;
+            if (stack[s - 1] != '"' && stack[s - 1] != '\'') {
+                stack[s++] = c;
             }
-            stack[s++] = c;
             break;
         case '}':
         case ']':
@@ -35,20 +40,16 @@ int main(void)
                 break;
             }
             if (stack[s - 1] == counterpart(c) && s >= 0) {
-                s--;
+                stack[s--] = '\0';
             } else {
-                printf
-                    ("%c instead of %c to close %c on line %d, column %d\n",
-                     c, counterpart(c), stack[s - 1], line, col);
+                printf("%d,%d %c instead of %c to close %c\n",
+                       line, col, c, counterpart(stack[s - 1]),
+                       stack[s - 1]);
+                stack[s] = '\0';
+                puts(stack);
                 return 1;
             }
             break;
-        case '\n':
-            line++;
-            col = 1;
-            break;
-        default:
-            col++;
         }
         c1 = c;
     }
