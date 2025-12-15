@@ -5,6 +5,7 @@
 char counterpart(char);
 
 /* limited syntax check: only checks for balanced {}, [], (), and "". */
+// FIXME: program fails with input '"'
 int main(void)
 {
     char c, c1 = 0, stack[STACK_SIZE];
