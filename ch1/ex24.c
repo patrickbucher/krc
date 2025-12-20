@@ -5,13 +5,13 @@
 char counterpart(char);
 
 /* limited syntax check: only checks for balanced {}, [], (), and "". */
-// FIXME: program fails with input '"'
 int main(void)
 {
-    char c, c1 = 0, stack[STACK_SIZE];
+    char c, c1 = 0, stack[STACK_SIZE], tip;
     int s = 0, line = 1, col = 0;
 
     while ((c = getchar()) != EOF) {
+        tip = s > 0 ? stack[s - 1] : 0;
         if (c == '\n') {
             line++;
             col = 0;
@@ -21,7 +21,7 @@ int main(void)
         switch (c) {
         case '"':
         case '\'':
-            if (stack[s - 1] == c && c1 != '\\') {
+            if (tip == c && c1 != '\\') {
                 stack[s--] = '\0';
             } else if (c1 != '\\') {
                 stack[s++] = c;
@@ -30,22 +30,21 @@ int main(void)
         case '{':
         case '[':
         case '(':
-            if (stack[s - 1] != '"' && stack[s - 1] != '\'') {
+            if (tip != '"' && tip != '\'') {
                 stack[s++] = c;
             }
             break;
         case '}':
         case ']':
         case ')':
-            if (stack[s - 1] == '"' || stack[s - 1] == '\'') {
+            if (tip == '"' || tip == '\'') {
                 break;
             }
-            if (stack[s - 1] == counterpart(c) && s >= 0) {
+            if (tip == counterpart(c)) {
                 stack[s--] = '\0';
             } else {
-                printf("%d,%d %c instead of %c to close %c\n",
-                       line, col, c, counterpart(stack[s - 1]),
-                       stack[s - 1]);
+                printf("%d,%d %c instead of %c to close %c\n", line, col,
+                       c, counterpart(tip), tip);
                 stack[s] = '\0';
                 puts(stack);
                 return 1;
@@ -54,10 +53,8 @@ int main(void)
         }
         c1 = c;
     }
-    if (s > 0) {
-        for (; s > 0; s--) {
-            printf("%c remains unclosed\n", stack[s - 1]);
-        }
+    for (; s > 0; s--) {
+        printf("%c remains unclosed\n", stack[s - 1]);
         return 1;
     }
 
