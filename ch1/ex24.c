@@ -8,9 +8,10 @@ char counterpart(char);
 /* limited syntax check: only checks for balanced {}, [], (), and "". */
 int main(void)
 {
-    char c = 0, prev = 0, tip = 0, stack[STACK_SIZE];
-    int s = 0, i = 0, line = 1, col = 0;
+    char c = 0, pp = 0, p = 0, tip = 0, stack[STACK_SIZE];
+    int s = 0, i = 0, line = 1, col = 0, escaped = 0;
 
+    stack[0] = '\0';
     while ((c = getchar()) != EOF) {
         assert(s >= 0);
         tip = s > 0 ? stack[s - 1] : 0;
@@ -22,16 +23,17 @@ int main(void)
         }
         switch (c) {
         case '"':
-            if (tip == c && prev != '\\') {
+            if (tip == c && p != '\\') {
                 stack[s--] = '\0';
-            } else if (prev != '\'') {
+            } else if (p != '\'') {
                 stack[s++] = c;
             }
             break;
         case '\'':
-            if (tip == c && prev != '\\') {
+            escaped = p == '\\' && pp != '\\';
+            if (tip == c && !escaped) {
                 stack[s--] = '\0';
-            } else if ((tip && tip != '"') || (!tip && prev != '\\')) {
+            } else if (tip && tip != '"' && !escaped) {
                 stack[s++] = c;
             }
             break;
@@ -58,7 +60,8 @@ int main(void)
             }
             break;
         }
-        prev = c;
+        pp = p;
+        p = c;
     }
 
     for (i = s - 1; i >= 0; i--) {
@@ -74,6 +77,12 @@ int main(void)
 char counterpart(char c)
 {
     switch (c) {
+    case '{':
+        return '}';
+    case '[':
+        return ']';
+    case '(':
+        return ')';
     case '}':
         return '{';
     case ']':
