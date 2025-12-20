@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 
 #define STACK_SIZE 32
@@ -11,6 +12,7 @@ int main(void)
     int s = 0, i = 0, line = 1, col = 0;
 
     while ((c = getchar()) != EOF) {
+        assert(s >= 0);
         tip = s > 0 ? stack[s - 1] : 0;
         if (c == '\n') {
             line++;
@@ -20,12 +22,16 @@ int main(void)
         }
         switch (c) {
         case '"':
+            if (tip == c && prev != '\\') {
+                stack[s--] = '\0';
+            } else if (prev != '\'') {
+                stack[s++] = c;
+            }
+            break;
         case '\'':
             if (tip == c && prev != '\\') {
                 stack[s--] = '\0';
-            } else if (prev != '\\' &&
-                       ((tip == '\'' && c == '\'') ||
-                        (tip == '"' && c == '\"'))) {
+            } else if ((tip && tip != '"') || (!tip && prev != '\\')) {
                 stack[s++] = c;
             }
             break;
@@ -55,7 +61,7 @@ int main(void)
         prev = c;
     }
 
-    for (i = s; i >= 0; i--) {
+    for (i = s - 1; i >= 0; i--) {
         printf("%c remains unclosed\n", stack[i]);
     }
     if (s) {

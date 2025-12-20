@@ -11,4 +11,4 @@ format:
 	gindent *.c -kr -nut
 
 clean:
-	rm -f $(ALL) *.c~
+	rm -f $(ALL) *.c~ *.core
