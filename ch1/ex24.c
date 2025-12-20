@@ -7,8 +7,8 @@ char counterpart(char);
 /* limited syntax check: only checks for balanced {}, [], (), and "". */
 int main(void)
 {
-    char c, c1 = 0, stack[STACK_SIZE], tip;
-    int s = 0, line = 1, col = 0;
+    char c = 0, prev = 0, tip = 0, stack[STACK_SIZE];
+    int s = 0, i = 0, line = 1, col = 0;
 
     while ((c = getchar()) != EOF) {
         tip = s > 0 ? stack[s - 1] : 0;
@@ -21,9 +21,11 @@ int main(void)
         switch (c) {
         case '"':
         case '\'':
-            if (tip == c && c1 != '\\') {
+            if (tip == c && prev != '\\') {
                 stack[s--] = '\0';
-            } else if (c1 != '\\') {
+            } else if (prev != '\\' &&
+                       ((tip == '\'' && c == '\'') ||
+                        (tip == '"' && c == '\"'))) {
                 stack[s++] = c;
             }
             break;
@@ -37,25 +39,27 @@ int main(void)
         case '}':
         case ']':
         case ')':
-            if (tip == '"' || tip == '\'') {
-                break;
-            }
-            if (tip == counterpart(c)) {
-                stack[s--] = '\0';
-            } else {
-                printf("%d,%d %c instead of %c to close %c\n", line, col,
-                       c, counterpart(tip), tip);
-                stack[s] = '\0';
-                puts(stack);
-                return 1;
+            if (tip != '"' && tip != '\'') {
+                if (tip == counterpart(c)) {
+                    stack[s--] = '\0';
+                } else {
+                    printf("%d,%d %c instead of %c to close %c\n", line,
+                           col, c, counterpart(tip), tip);
+                    stack[s] = '\0';
+                    puts(stack);
+                    return 1;
+                }
             }
             break;
         }
-        c1 = c;
+        prev = c;
     }
-    for (; s > 0; s--) {
-        printf("%c remains unclosed\n", stack[s - 1]);
-        return 1;
+
+    for (i = s; i >= 0; i--) {
+        printf("%c remains unclosed\n", stack[i]);
+    }
+    if (s) {
+        return -1;
     }
 
     return 0;
