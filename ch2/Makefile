@@ -1,7 +1,7 @@
 CFLAGS=-Wall -Wpedantic -std=c89
 ALL=bin2dec dec2bin ex01 ex02 ex03 ex04 ex05 ex06
 
-.PHONY: all format clean
+.PHONY: all format clean install
 
 all: $(ALL)
 
@@ -13,3 +13,7 @@ format:
 
 clean:
 	rm -f $(ALL) *.c~ *.core
+
+install: bin2dec dec2bin
+	cp bin2dec /usr/local/bin/
+	cp dec2bin /usr/local/bin/
