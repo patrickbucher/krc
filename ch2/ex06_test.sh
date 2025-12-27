@@ -14,3 +14,7 @@ test $(./ex06 219 3 4 12) -eq 220 || echo "err: setbits(219, 3, 4, 12)"
 # setbits(10001111, 6, 3, 111) = 11111111
 # setbits(143, 6, 3, 7) = 255
 test $(./ex06 143 6 3 7) -eq 255 || echo "err: setbits(143, 6, 3, 7)"
+
+# setbits(10101111, 5, 1, 1110) = 10001111
+# setbits(175, 5, 1, 14) = 143
+test $(./ex06 175 5 1 14) -eq 143 || echo "err: setbits(175, 5, 1, 14)"
