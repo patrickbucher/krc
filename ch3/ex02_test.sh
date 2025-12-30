@@ -4,6 +4,11 @@ set -euo pipefail
 
 make ex02
 
-export f=/tmp/ex02.txt
-./ex02 "this\tis\ta\ttest" >$f && test $(cat $f) = "this\\tis\\ta\\ttest" || "err: tabs"
-./ex02 "this\nis\na\ntest" >$f && test $(cat $f) = "this\\nis\\na\\ntest" || "err: newlines"
+expected_escaped=$(cat ./ex02_test_escaped.txt)
+expected_unescaped=$(cat ./ex02_test_unescaped.txt)
+
+actual_escaped=$(./ex02 escape "$expected_unescaped")
+actual_unescaped=$(./ex02 unescape "$expected_escaped")
+
+test "$actual_escaped" = "$expected_escaped" || echo "err: escape"
+test "$actual_unescaped" = "$expected_unescaped" || echo "err: unescape"

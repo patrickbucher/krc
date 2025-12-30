@@ -9,17 +9,18 @@ int unescape(char[], char[]);
 int main(int argc, char *argv[])
 {
     int n;
-    char *copy, *orig;
+    char *copy;
 
-    n = strlen(argv[1]);
+    n = strlen(argv[2]);
     copy = malloc(sizeof(char) * n * 2 + 1);
 
-    assert(escape(argv[1], copy) >= n);
-    printf("%s\n", copy);
-
-    orig = malloc(sizeof(char) * n * 2 + 1);
-    unescape(copy, orig);
-    assert(strncmp(orig, argv[1], n) == 0); /* FIXME */
+    if (strcmp(argv[1], "escape") == 0) {
+        escape(argv[2], copy);
+        printf("%s", copy);
+    } else if (strcmp(argv[1], "unescape") == 0) {
+        unescape(argv[2], copy);
+        printf("%s", copy);
+    }
 
     return 0;
 }
