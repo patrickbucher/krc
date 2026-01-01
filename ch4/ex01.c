@@ -15,20 +15,18 @@ int main(int argc, char *argv[])
 
 int strrindex(char haystack[], char needle[])
 {
-    int i, j, k, m, n;
+    int i, j, m, n;
 
     for (m = 0; haystack[m] != '\0'; m++);
     for (n = 0; needle[n] != '\0'; n++);
 
     for (i = m - n; i >= 0; i--) {
-        for (j = 0, k = 0; j < n; j++) {
-            if (haystack[i + j] == needle[j]) {
-                k++;
-            } else {
+        for (j = 0; j < n; j++) {
+            if (haystack[i + j] != needle[j]) {
                 break;
             }
         }
-        if (k == n) {
+        if (j == n) {
             return i;
         }
     }
