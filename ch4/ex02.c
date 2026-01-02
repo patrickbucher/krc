@@ -24,7 +24,7 @@ double atod(char s[])
     } else {
         sign = 1;
     }
-    for (; isdigit(s[i]); i++) {
+    for (d = 0; isdigit(s[i]); i++) {
         d = d * 10 + s[i] - '0';
     }
     if (s[i] == '.') {
@@ -43,12 +43,9 @@ double atod(char s[])
     } else {
         esign = 1;
     }
-    printf("dbg %c\n", s[i]);
-    for (e = 1; isdigit(s[i]); i++) {
+    for (e = 0; isdigit(s[i]); i++) {
         e = e * 10 + s[i] - '0';
     }
-    printf("e=%d, es=%d\n", e, esign);
-
     d = sign * d / power;
     if (e) {
         d = d * pow(10, e * esign);
