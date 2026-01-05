@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
             push(r);
             push(l);
         } else if (strcmp(argv[i], "clear") == 0) {
-
+            clear();
         } else {
             o = atof(argv[i]);
             push(o);
