@@ -1,5 +1,5 @@
 CFLAGS=-Wall -Wpedantic -std=c89
-ALL=ex01 ex02 ex03 ex04 ex05
+ALL=ex01 ex02 ex03 ex04 ex05 ex06
 
 .PHONY: all format clean install
 
@@ -9,6 +9,9 @@ ex02: ex02.c
 	$(CC) $(CFLAGS) $< -o $@ -lm
 
 ex05: ex05.c
+	$(CC) $(CFLAGS) $< -o $@ -lm
+
+ex06: ex06.c
 	$(CC) $(CFLAGS) $< -o $@ -lm
 
 format:
